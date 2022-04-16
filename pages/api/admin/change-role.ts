@@ -11,8 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'PATCH') {
       try {
         const { id, role } = req.body
-
-        const updatedUser = await prisma.user.update({
+        await prisma.user.update({
           where: {
             id
           },

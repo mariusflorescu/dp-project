@@ -7,6 +7,7 @@ const Affix = () => {
   const { data: session } = useSession()
 
   if (
+    !session?.role ||
     session?.role === 'USER' ||
     router.asPath.startsWith('/admin') ||
     router.asPath.startsWith('/supplier')

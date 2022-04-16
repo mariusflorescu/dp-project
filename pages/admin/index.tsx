@@ -1,14 +1,23 @@
 import type { NextPage } from 'next'
 import axios from 'axios'
 import useSWR from 'swr'
-import { Stack, Text, LoadingOverlay, Table } from '@mantine/core'
+import {
+  useMantineTheme,
+  Stack,
+  Text,
+  LoadingOverlay,
+  Table
+} from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import SelectRole from '../../components/SelectRole'
 
 const AdminPage: NextPage = () => {
   const { data, error, mutate } = useSWR('/api/admin/users')
+  const theme = useMantineTheme()
 
   const onRoleChange = async (user: any, value: string | null) => {
+    if (user.role === value) return
+
     try {
       const { status } = await axios.patch('/api/admin/change-role', {
         id: user.id,
@@ -27,6 +36,14 @@ const AdminPage: NextPage = () => {
       }
     } catch (err) {
       console.error(err)
+      showNotification({
+        title: 'User could not be updated',
+        message: `There was an error when trying to update ${
+          user.email
+        }'s role to ${value?.toLocaleLowerCase()}`,
+        color: 'red',
+        autoClose: 3000
+      })
     }
   }
 
@@ -40,7 +57,7 @@ const AdminPage: NextPage = () => {
         Hello Admin
       </Text>
       <Table sx={{ marginTop: 24 }}>
-        <thead>
+        <thead style={{ backgroundColor: theme.colors.dark[8] }}>
           <tr>
             <th>ID</th>
             <th>Name</th>

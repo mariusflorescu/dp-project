@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               }
             })}
           />
-          <NotificationsProvider>
+          <NotificationsProvider limit={3}>
             <Layout>
               <Component {...pageProps} />
             </Layout>

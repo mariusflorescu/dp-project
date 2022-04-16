@@ -38,7 +38,11 @@ const Navbar = () => {
               DP Ecommerce
             </Text>
           </Grid.Col>
-          <Grid.Col span={4} offset={4}>
+          <Grid.Col
+            span={4}
+            offset={4}
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          >
             {status !== 'loading' && (
               <Button
                 variant="light"
