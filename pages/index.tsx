@@ -1,9 +1,15 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { signIn, signOut, useSession } from "next-auth/react";
+import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
+
+  console.log(session?.user);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,13 +18,28 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {!session && (
+        <>
+          <span>You are not signed in</span>
+          <a
+            href={`/api/auth/signin`}
+            onClick={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
+          >
+            Sign in
+          </a>
+        </>
+      )}
+
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -59,14 +80,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

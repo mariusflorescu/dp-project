@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "migrate:dev": "dotenv -e .env.local prisma migrate dev",
+    "db-push:dev": "dotenv -e .env.local prisma db push",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
