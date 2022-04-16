@@ -15,7 +15,7 @@ export default NextAuth({
     }),
   ],
   theme: {
-    colorScheme: "light",
+    colorScheme: "dark",
   },
   jwt: {
     maxAge: 60 * 60 * 24 * 30,
