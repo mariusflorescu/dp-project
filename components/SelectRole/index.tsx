@@ -1,28 +1,28 @@
-import { Select, SelectProps as MantineSelectProps } from "@mantine/core";
+import { Select, SelectProps as MantineSelectProps } from '@mantine/core'
 
-type SelectProps = Omit<MantineSelectProps, "data">;
+type SelectProps = Omit<MantineSelectProps, 'data'>
 
 const roles = [
   {
-    value: "USER",
-    label: "User",
+    value: 'USER',
+    label: 'User'
   },
   {
-    value: "SUPPLIER",
-    label: "Supplier",
+    value: 'SUPPLIER',
+    label: 'Supplier'
   },
   {
-    value: "ADMIN",
-    label: "Admin",
-  },
-];
+    value: 'ADMIN',
+    label: 'Admin'
+  }
+]
 
 const SelectRole = (props: SelectProps) => {
-  if (props.value === "ADMIN") {
-    return <>Admin</>;
+  if (props.value === 'ADMIN') {
+    return <>Admin</>
   } else {
-    return <Select {...props} data={roles} />;
+    return <Select {...props} data={roles} />
   }
-};
+}
 
-export default SelectRole;
+export default SelectRole

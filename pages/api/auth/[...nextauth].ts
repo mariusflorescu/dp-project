@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
+import NextAuth from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -11,38 +11,38 @@ export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
-      clientSecret: process.env.GOOGLE_SECRET as string,
-    }),
+      clientSecret: process.env.GOOGLE_SECRET as string
+    })
   ],
   theme: {
-    colorScheme: "dark",
+    colorScheme: 'dark'
   },
   jwt: {
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60 * 24 * 30
   },
   session: {
-    strategy: "jwt",
+    strategy: 'jwt'
   },
   callbacks: {
     async jwt({ token, user, isNewUser }) {
       if (user?.type) {
-        token.status = user.type;
+        token.status = user.type
       }
 
       if (user?.role) {
-        token.role = user.role;
+        token.role = user.role
       }
 
       if (isNewUser) {
-        token.role = "USER";
+        token.role = 'USER'
       }
-      return token;
+      return token
     },
     async session({ session, token }) {
-      session.type = token.type;
-      session.role = token.role;
+      session.type = token.type
+      session.role = token.role
 
-      return session;
-    },
-  },
-});
+      return session
+    }
+  }
+})

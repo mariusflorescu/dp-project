@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next'
 
 const Test: NextPage = () => {
-  return <h1>Hello admin</h1>;
-};
+  return <h1>Hello admin</h1>
+}
 
-export default Test;
+export default Test

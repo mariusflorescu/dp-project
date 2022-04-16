@@ -1,26 +1,26 @@
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import {
   useMantineTheme,
   Box,
   Container,
   Grid,
   Text,
-  Button,
-} from "@mantine/core";
+  Button
+} from '@mantine/core'
 
 const Navbar = () => {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const theme = useMantineTheme();
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const theme = useMantineTheme()
 
   const goToLogin = () => {
-    router.push("/api/auth/signin");
-  };
+    router.push('/api/auth/signin')
+  }
 
   const goToLogout = () => {
-    router.push("/api/auth/signout");
-  };
+    router.push('/api/auth/signout')
+  }
 
   return (
     <Box sx={{ backgroundColor: theme.colors.dark[8] }}>
@@ -31,7 +31,7 @@ const Navbar = () => {
               component="span"
               align="center"
               variant="gradient"
-              gradient={{ from: "cyan", to: "green", deg: 45 }}
+              gradient={{ from: 'cyan', to: 'green', deg: 45 }}
               size="xl"
               weight={700}
             >
@@ -39,27 +39,27 @@ const Navbar = () => {
             </Text>
           </Grid.Col>
           <Grid.Col span={4} offset={4}>
-            {status !== "loading" && (
+            {status !== 'loading' && (
               <Button
                 variant="light"
                 color="teal"
                 uppercase
                 onClick={() => {
                   if (session?.user) {
-                    return goToLogout();
+                    return goToLogout()
                   }
 
-                  return goToLogin();
+                  return goToLogin()
                 }}
               >
-                {session?.user ? "Logout" : "Login"}
+                {session?.user ? 'Logout' : 'Login'}
               </Button>
             )}
           </Grid.Col>
         </Grid>
       </Container>
     </Box>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
