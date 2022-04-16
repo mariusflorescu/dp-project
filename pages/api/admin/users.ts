@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
 
   if (session?.role === 'ADMIN') {
@@ -30,3 +30,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
   }
 }
+
+export default handler
