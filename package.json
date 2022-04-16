@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "db:up": "docker-compose up -d",
     "migrate:dev": "dotenv -e .env.local prisma migrate dev",
     "db-push:dev": "dotenv -e .env.local prisma db push",
+    "dx": "yarn run db:up && yarn run migrate:dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
