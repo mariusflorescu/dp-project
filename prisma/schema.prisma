@@ -53,6 +53,7 @@ model User {
     sessions      Session[]
     role          Role      @default(USER)
 
+    Product Product[]
     @@map("users")
 }
 
@@ -63,4 +64,15 @@ model VerificationToken {
 
     @@unique([identifier, token])
     @@map("verificationtokens")
+}
+
+model Product {
+    id          String  @id @default(cuid())
+    name        String
+    description String
+    userId      String  @map("user_id")
+    imageURL    String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    @@map("products")
 }
