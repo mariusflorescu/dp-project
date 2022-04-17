@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
 import axios from 'axios'
 import {
   Box,
@@ -24,6 +25,7 @@ const useStyles = createStyles((theme) => ({
 
 const AddNewProduct: NextPage = () => {
   const router = useRouter()
+  const { mutate } = useSWR('/api/supplier/get-products')
   const theme = useMantineTheme()
   const { classes } = useStyles()
   const form = useForm({
@@ -41,6 +43,7 @@ const AddNewProduct: NextPage = () => {
         ...values
       })
       if (status === 201) {
+        mutate()
         showNotification({
           title: 'Success',
           message: `You have successfully created the product!`,
@@ -85,6 +88,7 @@ const AddNewProduct: NextPage = () => {
           required
           label="Product quantity"
           placeholder="3"
+          min={1}
           {...form.getInputProps('quantity')}
         />
 
