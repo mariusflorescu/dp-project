@@ -108,7 +108,6 @@ const EditButton: React.FC<TProps> = ({ product, mutate }) => {
             required
             label="Product quantity"
             placeholder="3"
-            min={1}
             {...form.getInputProps('quantity')}
           />
 

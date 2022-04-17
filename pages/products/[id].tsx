@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import { ShoppingCart } from 'tabler-icons-react'
 import { useMantineTheme, Box, Image, Text, Button } from '@mantine/core'
 
 const ProductPage: NextPage = () => {
@@ -19,7 +20,7 @@ const ProductPage: NextPage = () => {
       <Button size="sm" variant="default" onClick={() => router.back()}>
         Go back
       </Button>
-      <Text weight={600} size="xl" mt={theme.spacing.lg}>
+      <Text weight={600} size="xl" my={theme.spacing.lg}>
         {product.name}
       </Text>
       {product.imageURL ? (
@@ -39,6 +40,16 @@ const ProductPage: NextPage = () => {
       <Text size="sm" sx={{ color: theme.colors.dark[2] }}>
         Sold by: {product.user.name}
       </Text>
+      <Box mt={theme.spacing.md}>
+        <Button
+          leftIcon={<ShoppingCart size={18} />}
+          color="teal"
+          size="sm"
+          disabled={product.quantity === 0}
+        >
+          {!!product.quantity ? 'Add to Cart' : 'Out of stock'}
+        </Button>
+      </Box>
     </Box>
   )
 }

@@ -6,13 +6,20 @@ import {
   Container,
   Grid,
   Text,
-  Button
+  Button,
+  Menu,
+  Avatar
 } from '@mantine/core'
+import { Home, Logout } from 'tabler-icons-react'
 
 const Navbar = () => {
   const router = useRouter()
   const { data: session, status } = useSession()
   const theme = useMantineTheme()
+
+  const goToHome = () => {
+    router.push('/')
+  }
 
   const goToLogin = () => {
     router.push('/api/auth/signin')
@@ -43,7 +50,7 @@ const Navbar = () => {
             offset={4}
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
           >
-            {status !== 'loading' && (
+            {status !== 'loading' && !session?.user && (
               <Button
                 variant="light"
                 color="teal"
@@ -56,8 +63,32 @@ const Navbar = () => {
                   return goToLogin()
                 }}
               >
-                {session?.user ? 'Logout' : 'Login'}
+                Login
               </Button>
+            )}
+
+            {status !== 'loading' && session?.user && (
+              <Menu control={<Avatar src={session?.user.image} />}>
+                <Menu.Label>Application</Menu.Label>
+                <Menu.Item
+                  icon={<Home size={14} />}
+                  rightSection={
+                    <Text size="xs" color="dimmed">
+                      SHIFT + H
+                    </Text>
+                  }
+                  onClick={() => goToHome()}
+                >
+                  Go Home
+                </Menu.Item>
+                <Menu.Label>Actions</Menu.Label>
+                <Menu.Item
+                  icon={<Logout size={14} />}
+                  onClick={() => goToLogout()}
+                >
+                  Logout
+                </Menu.Item>
+              </Menu>
             )}
           </Grid.Col>
         </Grid>
