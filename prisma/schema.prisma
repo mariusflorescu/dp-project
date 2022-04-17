@@ -71,6 +71,7 @@ model Product {
     name        String
     description String
     userId      String  @map("user_id")
+    quantity    Int
     imageURL    String?
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)

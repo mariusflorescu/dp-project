@@ -29,6 +29,10 @@ export default NextAuth({
         token.status = user.type
       }
 
+      if (user?.id) {
+        token.uid = user.id
+      }
+
       if (user?.role) {
         token.role = user.role
       }
@@ -36,11 +40,13 @@ export default NextAuth({
       if (isNewUser) {
         token.role = 'USER'
       }
+
       return token
     },
     async session({ session, token }) {
       session.type = token.type
       session.role = token.role
+      session.uid = token.uid
 
       return session
     }
