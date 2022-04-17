@@ -1,14 +1,12 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { ShoppingCart } from 'tabler-icons-react'
 import {
   useMantineTheme,
   Card,
   Image,
   Text,
   Group,
-  Button,
-  ActionIcon
+  Button
 } from '@mantine/core'
 
 type TProps = {
@@ -47,7 +45,7 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
       >
         {product.description}
       </Text>
-      <Group position="apart" sx={{ marginTop: theme.spacing.md }}>
+      <Group position="right" sx={{ marginTop: theme.spacing.md }}>
         <Button
           variant="subtle"
           size="xs"
@@ -55,9 +53,6 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
         >
           View Details
         </Button>
-        <ActionIcon variant="hover" size="sm" color="gray">
-          <ShoppingCart />
-        </ActionIcon>
       </Group>
     </Card>
   )
