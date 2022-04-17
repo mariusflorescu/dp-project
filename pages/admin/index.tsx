@@ -8,8 +8,11 @@ import {
   LoadingOverlay,
   Table
 } from '@mantine/core'
-import { showNotification } from '@mantine/notifications'
 import SelectRole from '../../components/SelectRole'
+import {
+  successNotification,
+  failureNotification
+} from '../../components/Notifications'
 
 const AdminPage: NextPage = () => {
   const { data, error, mutate } = useSWR('/api/admin/users')
@@ -24,25 +27,21 @@ const AdminPage: NextPage = () => {
         role: value
       })
       if (status === 200) {
-        showNotification({
+        successNotification({
           title: 'User updated successfully',
           message: `You have successfully updated ${
             user.email
-          }'s role to ${value?.toLocaleLowerCase()}`,
-          color: 'teal',
-          autoClose: 3000
+          }'s role to ${value?.toLocaleLowerCase()}`
         })
         mutate()
       }
     } catch (err) {
       console.error(err)
-      showNotification({
+      failureNotification({
         title: 'User could not be updated',
         message: `There was an error when trying to update ${
           user.email
-        }'s role to ${value?.toLocaleLowerCase()}`,
-        color: 'red',
-        autoClose: 3000
+        }'s role to ${value?.toLocaleLowerCase()}`
       })
     }
   }

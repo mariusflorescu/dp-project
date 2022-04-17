@@ -12,7 +12,10 @@ import {
   useMantineTheme
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { showNotification } from '@mantine/notifications'
+import {
+  successNotification,
+  failureNotification
+} from '../../components/Notifications'
 
 const useStyles = createStyles((theme) => ({
   formRoot: {
@@ -44,21 +47,17 @@ const AddNewProduct: NextPage = () => {
       })
       if (status === 201) {
         mutate()
-        showNotification({
+        successNotification({
           title: 'Success',
-          message: `You have successfully created the product!`,
-          color: 'teal',
-          autoClose: 3000
+          message: `You have successfully created the product!`
         })
         router.push('/supplier')
       }
     } catch (err) {
       console.error(err)
-      showNotification({
+      failureNotification({
         title: 'Failure',
-        message: `There was a failure when trying to create the product.`,
-        color: 'red',
-        autoClose: 3000
+        message: `There was a failure when trying to create the product.`
       })
     }
   }
