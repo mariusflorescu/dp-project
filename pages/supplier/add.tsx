@@ -36,6 +36,7 @@ const AddNewProduct: NextPage = () => {
       name: '',
       description: '',
       quantity: 0,
+      price: 0,
       imageURL: ''
     }
   })
@@ -89,6 +90,17 @@ const AddNewProduct: NextPage = () => {
           placeholder="3"
           min={1}
           {...form.getInputProps('quantity')}
+        />
+
+        <NumberInput
+          label="Price"
+          parser={(value) => (value as string).replace(/\$\s?|(,*)/g, '')}
+          formatter={(value) =>
+            !Number.isNaN(parseFloat(value as string))
+              ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              : '$ '
+          }
+          {...form.getInputProps('price')}
         />
 
         <TextInput

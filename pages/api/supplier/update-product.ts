@@ -9,7 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (session?.role === 'SUPPLIER') {
     if (req.method === 'PUT') {
-      const { id, name, description, quantity, imageURL, userId } = req.body
+      const { id, name, description, quantity, price, imageURL, userId } = req.body
 
       if (session.uid !== userId) {
         return res.status(401).json({ success: false })
@@ -24,6 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             name,
             description,
             quantity,
+            price,
             imageURL
           }
         })

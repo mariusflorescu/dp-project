@@ -41,9 +41,12 @@ const EditButton: React.FC<TProps> = ({ product, mutate }) => {
       name: product.name,
       description: product.description,
       quantity: product.quantity,
+      price: product.price,
       imageURL: product.imageURL
     }
   })
+
+  console.log(product)
 
   const handleEditClick = async (values: any) => {
     try {
@@ -109,6 +112,17 @@ const EditButton: React.FC<TProps> = ({ product, mutate }) => {
             label="Product quantity"
             placeholder="3"
             {...form.getInputProps('quantity')}
+          />
+
+          <NumberInput
+            label="Price"
+            parser={(value) => (value as string).replace(/\$\s?|(,*)/g, '')}
+            formatter={(value) =>
+              !Number.isNaN(parseFloat(value as string))
+                ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                : '$ '
+            }
+            {...form.getInputProps('price')}
           />
 
           <TextInput

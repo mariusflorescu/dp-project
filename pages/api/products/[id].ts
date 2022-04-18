@@ -17,6 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           name: true,
           description: true,
           quantity: true,
+          price: true,
           imageURL: true,
           user: {
             select: {

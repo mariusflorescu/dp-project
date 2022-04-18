@@ -49,6 +49,7 @@ const SupplierPage: NextPage = () => {
             <th>Product Name</th>
             <th>Product Description</th>
             <th>Quantity</th>
+            <th>Price</th>
             <th>Image URL</th>
             <th>Actions</th>
           </tr>
@@ -59,16 +60,21 @@ const SupplierPage: NextPage = () => {
               <tr>
                 <td>{product.name}</td>
                 <td>{product.description}</td>
-                <td>{product.quantity}</td>
+                <td>{product.quantity || '-'}</td>
+                <td>{product.price ? `${product.price}$` : '-'}</td>
                 <td>
-                  <Anchor target="_blank" href={product.imageURL}>
-                    {product.imageURL}
-                  </Anchor>
+                  {product.imageURL ? (
+                    <Anchor target="_blank" href={product.imageURL}>
+                      {product.imageURL}
+                    </Anchor>
+                  ) : (
+                    '-'
+                  )}
                 </td>
                 <td>
                   <Group>
                     <EditButton product={product} mutate={mutate} />
-                    <DeleteButton product={product} mutate={mutate}/>
+                    <DeleteButton product={product} mutate={mutate} />
                   </Group>
                 </td>
               </tr>

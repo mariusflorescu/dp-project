@@ -10,12 +10,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (session?.role === 'SUPPLIER') {
     if (req.method === 'POST') {
       try {
-        const { name, description, quantity, imageURL } = req.body
+        const { name, description, quantity, price, imageURL } = req.body
         await prisma.product.create({
           data: {
             name,
             description,
             quantity,
+            price,
             imageURL,
             userId: session.uid as string
           }

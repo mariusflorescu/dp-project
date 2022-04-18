@@ -45,7 +45,10 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
       >
         {product.description}
       </Text>
-      <Group position="right" sx={{ marginTop: theme.spacing.md }}>
+      <Group position="apart" sx={{ marginTop: theme.spacing.md }}>
+        <Text weight={500} size="sm" sx={{ color: theme.colors.dark[2] }}>
+          {product.price}$
+        </Text>
         <Button
           variant="subtle"
           size="xs"

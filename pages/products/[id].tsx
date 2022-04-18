@@ -37,6 +37,13 @@ const ProductPage: NextPage = () => {
       <Text sx={{ color: theme.colors.dark[1] }} mt={theme.spacing.md}>
         {product.description}
       </Text>
+      <Text
+        size="sm"
+        mt={theme.spacing.md}
+        sx={{ color: theme.colors.dark[2] }}
+      >
+        Price: {product.price}$
+      </Text>
       <Text size="sm" sx={{ color: theme.colors.dark[2] }}>
         Sold by: {product.user.name}
       </Text>
