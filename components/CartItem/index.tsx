@@ -40,37 +40,34 @@ const CartItem: React.FC<TProps> = ({ cartItem }) => {
           <Text>{product.description}</Text>
         </Stack>
       </Group>
-      <Box>
-        {' '}
-        <Group>
-          <ActionIcon
-            size={42}
-            variant="default"
-            onClick={() => handlers!.current!.decrement()}
-          >
-            –
-          </ActionIcon>
+      <Group>
+        <ActionIcon
+          size={42}
+          variant="default"
+          onClick={() => handlers!.current!.decrement()}
+        >
+          –
+        </ActionIcon>
 
-          <NumberInput
-            hideControls
-            value={quantity}
-            onChange={(val) => updateItemQuantity(product, val)}
-            handlersRef={handlers}
-            max={product.quantity}
-            min={0}
-            disabled={product.quantity === 0}
-            styles={{ input: { width: 54, textAlign: 'center' } }}
-          />
+        <NumberInput
+          hideControls
+          value={quantity}
+          onChange={(val) => updateItemQuantity(product, val)}
+          handlersRef={handlers}
+          max={product.quantity}
+          min={0}
+          disabled={product.quantity === 0}
+          styles={{ input: { width: 54, textAlign: 'center' } }}
+        />
 
-          <ActionIcon
-            size={42}
-            variant="default"
-            onClick={() => handlers!.current!.increment()}
-          >
-            +
-          </ActionIcon>
-        </Group>
-      </Box>
+        <ActionIcon
+          size={42}
+          variant="default"
+          onClick={() => handlers!.current!.increment()}
+        >
+          +
+        </ActionIcon>
+      </Group>
       <Box>{product.price}$</Box>
     </Group>
   )

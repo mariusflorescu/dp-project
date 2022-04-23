@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState } from 'react'
+import { useLocalStorage } from '@mantine/hooks'
 
 type TItem = {
   product: any
@@ -17,9 +18,12 @@ type TProps = {
 }
 
 const CartProvider: React.FC<TProps> = ({ children }) => {
-  const [cart, setCart] = useState<TCart>({
-    items: [],
-    total: 0
+  const [cart, setCart] = useLocalStorage<TCart>({
+    key: 'cart',
+    defaultValue: {
+      items: [],
+      total: 0
+    }
   })
 
   const computeTotal = (items: TItem[]) =>
@@ -34,7 +38,6 @@ const CartProvider: React.FC<TProps> = ({ children }) => {
   const updateItemQuantity = (product: any, quantity: number) => {
     const newCart = cart.items.map((item) => {
       if (item.product.id === product.id) {
-
         return {
           ...item,
           quantity

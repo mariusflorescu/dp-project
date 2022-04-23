@@ -22,7 +22,7 @@ const Cart: NextPage = () => {
       </Text>
       <Stack mt={theme.spacing.lg} spacing="lg">
         {cart.items.map((cartItem: any) => (
-          <CartItem key={cartItem.id} cartItem={cartItem} />
+          <CartItem key={cartItem.product.id} cartItem={cartItem} />
         ))}
       </Stack>
       <Divider mt={theme.spacing.xl} mb={theme.spacing.md} />
