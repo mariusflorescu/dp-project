@@ -46,8 +46,6 @@ const EditButton: React.FC<TProps> = ({ product, mutate }) => {
     }
   })
 
-  console.log(product)
-
   const handleEditClick = async (values: any) => {
     try {
       const { status } = await axios.put('/api/supplier/update-product', {

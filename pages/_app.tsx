@@ -5,6 +5,7 @@ import { SWRConfig } from 'swr'
 import { MantineProvider, Global } from '@mantine/core'
 import { useHotkeys } from '@mantine/hooks'
 import { NotificationsProvider } from '@mantine/notifications'
+import CartProvider from '../lib/cart'
 import Layout from '../layout'
 import fetcher from '../lib/fetcher'
 
@@ -32,9 +33,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             })}
           />
           <NotificationsProvider limit={3}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <CartProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </CartProvider>
           </NotificationsProvider>
         </MantineProvider>
       </SWRConfig>

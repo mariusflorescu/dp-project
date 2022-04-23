@@ -3,7 +3,11 @@ import { Container } from '@mantine/core'
 import Navbar from '../components/Navbar'
 import Affix from '../components/Affix'
 
-const Layout: React.FC = ({ children }) => {
+type TProps = {
+  children: React.ReactNode | undefined
+}
+
+const Layout: React.FC<TProps> = ({ children }) => {
   return (
     <>
       <Affix />

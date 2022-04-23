@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import {
@@ -8,17 +9,25 @@ import {
   Text,
   Button,
   Menu,
-  Avatar
+  Avatar,
+  Badge,
+  ActionIcon
 } from '@mantine/core'
-import { Home, Logout } from 'tabler-icons-react'
+import { Home, Logout, ShoppingCart } from 'tabler-icons-react'
+import { CartContext } from '../../lib/cart'
 
 const Navbar = () => {
   const router = useRouter()
   const { data: session, status } = useSession()
   const theme = useMantineTheme()
+  const { totalNumberOfProducts } = useContext(CartContext)
 
   const goToHome = () => {
     router.push('/')
+  }
+
+  const goToCart = () => {
+    router.push('/cart')
   }
 
   const goToLogin = () => {
@@ -68,7 +77,13 @@ const Navbar = () => {
             )}
 
             {status !== 'loading' && session?.user && (
-              <Menu control={<Avatar src={session?.user.image} />}>
+              <Menu
+                control={
+                  <ActionIcon>
+                    <Avatar src={session?.user.image} />
+                  </ActionIcon>
+                }
+              >
                 <Menu.Label>Application</Menu.Label>
                 <Menu.Item
                   icon={<Home size={14} />}
@@ -80,6 +95,15 @@ const Navbar = () => {
                   onClick={() => goToHome()}
                 >
                   Go Home
+                </Menu.Item>
+                <Menu.Item
+                  icon={<ShoppingCart size={14} />}
+                  rightSection={
+                    <Badge color="red">{totalNumberOfProducts()}</Badge>
+                  }
+                  onClick={() => goToCart()}
+                >
+                  View Cart
                 </Menu.Item>
                 <Menu.Label>Actions</Menu.Label>
                 <Menu.Item
