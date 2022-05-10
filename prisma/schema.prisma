@@ -54,6 +54,7 @@ model User {
     role          Role      @default(USER)
 
     Product Product[]
+    Order   Order[]
     @@map("users")
 }
 
@@ -75,6 +76,28 @@ model Product {
     price       Float
     imageURL    String?
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+    ProductOrders ProductOrders[]
     @@map("products")
+}
+
+model Order {
+    id     String @id @default(cuid())
+    userId String @map("user_id")
+    total  Float
+
+    user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+    ProductOrders ProductOrders[]
+    @@map("orders")
+}
+
+model ProductOrders {
+    orderId   String @map("order_id")
+    productId String @map("product_id")
+    quantity  Int
+
+    order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    @@id([orderId, productId])
+    @@map("product_orders")
 }

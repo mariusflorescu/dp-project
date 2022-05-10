@@ -1,5 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 import { useLocalStorage } from '@mantine/hooks'
+import useSWR from 'swr'
+import fetcher from '../fetcher'
 
 type TItem = {
   product: any
@@ -18,6 +20,15 @@ type TProps = {
 }
 
 const CartProvider: React.FC<TProps> = ({ children }) => {
+  const {
+    data: products,
+    error,
+    mutate: mutateProducts
+  } = useSWR('api/products/get', fetcher, {
+    refreshInterval: 2000,
+    dedupingInterval: 1500
+  })
+
   const [cart, setCart] = useLocalStorage<TCart>({
     key: 'cart',
     defaultValue: {
@@ -83,8 +94,44 @@ const CartProvider: React.FC<TProps> = ({ children }) => {
     }
   }
 
+  const cleanCart = () => {
+    setCart({
+      items: [],
+      total: 0
+    })
+  }
+
+  const updateCartItemsOnRefetch = () => {
+    let newCart = cart.items.map((item) => {
+      for (const product of products) {
+        if (item.product.id === product.id) {
+          if (product.quantity < item.quantity) {
+            return {
+              ...item,
+              quantity: product.quantity
+            }
+          } else {
+            return item
+          }
+        }
+      }
+    })
+
+    const filteredCartItems = newCart.filter((item) => item!.quantity !== 0)
+
+    setCart({
+      items: filteredCartItems as { product: any; quantity: number }[],
+      total: computeTotal(newCart as { product: any; quantity: number }[])
+    })
+  }
+
   const totalNumberOfProducts = () =>
     cart.items.reduce((acc, item) => acc + item.quantity, 0)
+
+  useEffect(() => {
+    if (!products && !error) return
+    updateCartItemsOnRefetch()
+  }, [products, error])
 
   return (
     <CartContext.Provider
@@ -94,7 +141,11 @@ const CartProvider: React.FC<TProps> = ({ children }) => {
         isItemInCart,
         addItemToCart,
         updateItemQuantity,
-        totalNumberOfProducts
+        totalNumberOfProducts,
+        cleanCart,
+        products,
+        loadingProducts: !products && !error,
+        mutateProducts
       }}
     >
       {children}

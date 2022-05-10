@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
-import { useState, useMemo } from 'react'
-import useSWR from 'swr'
+import { useState, useMemo, useContext } from 'react'
 import { useDebouncedValue } from '@mantine/hooks'
 import {
   useMantineTheme,
@@ -10,10 +9,11 @@ import {
   Text
 } from '@mantine/core'
 import ProductCard from '../components/ProductCard'
+import { CartContext } from '../lib/cart'
 
 const Home: NextPage = () => {
   const theme = useMantineTheme()
-  const { data, error } = useSWR('api/products/get')
+  const { products: data, loadingProducts: loading } = useContext(CartContext)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500)
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <LoadingOverlay
-        visible={!products && !error}
+        visible={loading}
         loaderProps={{ color: 'teal', size: 'lg' }}
       />
       <TextInput
