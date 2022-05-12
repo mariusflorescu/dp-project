@@ -45,7 +45,7 @@ const Cart: NextPage = () => {
       if (res.status === 201) {
         successNotification({
           title: 'Success',
-          message: `You have successfully created the product!`
+          message: `You have successfully placed the order!`
         })
         cleanCart()
         router.push('/')
