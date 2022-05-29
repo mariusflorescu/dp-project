@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from 'react'
-import { useLocalStorage } from '@mantine/hooks'
 import useSWR from 'swr'
+import { useLocalStorage } from '@mantine/hooks'
 import fetcher from '../fetcher'
 
 type TItem = {
@@ -102,6 +102,8 @@ const CartProvider: React.FC<TProps> = ({ children }) => {
   }
 
   const updateCartItemsOnRefetch = () => {
+    if (!products) return
+
     let newCart = cart.items.map((item) => {
       for (const product of products) {
         if (item.product.id === product.id) {

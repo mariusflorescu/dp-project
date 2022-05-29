@@ -1,10 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { PrismaClient } from '@prisma/client'
-// import sgMail from '@sendgrid/mail'
-// import { getEmailOptions } from '../../lib/email'
+import nodemailer from 'nodemailer'
 
 const prisma = new PrismaClient()
+
+const emailTransport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASSWORD
+  }
+})
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
@@ -44,10 +51,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           })
         }
 
-        // sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY as string)
-        // await sgMail.send(
-        //   getEmailOptions(user?.email as string, user?.name as string, total)
-        // )
+        const emailDetails = {
+          from: 'upt.dp.ecommerce@gmail.com',
+          to: user?.email as string,
+          subject: 'Your order has been placed!',
+          text: `Hello, ${user?.name}, your order with a total of ${total}$ has been placed!`
+        }
+
+        await emailTransport.sendMail(emailDetails)
 
         return res.status(201).json({ success: true })
       } catch (err) {
