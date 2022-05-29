@@ -25,8 +25,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# DATABASE_URL=postgresql://postgres:docker@127.0.0.1:5932/ecommerce_local?schema=public
+
 # local env files
 .env*.local
+.env.production
 
 # vercel
 .vercel

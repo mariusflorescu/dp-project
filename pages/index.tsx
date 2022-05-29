@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       {products && products.length ? (
         <Grid mt={theme.spacing.sm}>
           {products.map((product: any) => (
-            <Grid.Col key={product.id} span={4}>
+            <Grid.Col key={product.id} sm={6} md={4}>
               <ProductCard product={product} />
             </Grid.Col>
           ))}
