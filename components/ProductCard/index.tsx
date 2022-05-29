@@ -17,6 +17,11 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
   const router = useRouter()
   const theme = useMantineTheme()
 
+  const description =
+    product?.description.length > 100
+      ? product.description.slice(0, 99)
+      : product.description
+
   return (
     <Card shadow="lg" p="lg">
       <Card.Section>
@@ -43,7 +48,7 @@ const ProductCard: React.FC<TProps> = ({ product }) => {
           marginTop: theme.spacing.xs
         }}
       >
-        {product.description}
+        {product?.description.length > 100 ? `${description}...` : description}
       </Text>
       <Group position="apart" sx={{ marginTop: theme.spacing.md }}>
         <Text weight={500} size="sm" sx={{ color: theme.colors.dark[2] }}>
