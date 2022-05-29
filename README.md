@@ -45,7 +45,7 @@ The database is a PostgreSQL instance (locally run via `docker-compose`).
 
 For handling db queries we've chosen [Prisma](https://www.prisma.io/), a wonderful ORM, which handles the schema too. Making migrations is easier than ever.
 
-Email will be sent via Sendgrid.
+Email will be sent via Nodemailer.
 
 ### Understanding the project structure
 
