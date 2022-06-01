@@ -29,7 +29,6 @@ There are 3 types of users:
 
 - can view list of users
 - can update user role
-- view history of orders
 
 ### Technologies
 
